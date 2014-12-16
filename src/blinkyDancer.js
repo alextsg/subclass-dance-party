@@ -1,11 +1,14 @@
 var BlinkyDancer = function(top, left, timeBetweenSteps){
+  this.$node = $('<span class="dancer"></span>');
   Dancer.call(this, top, left, timeBetweenSteps);
+  var random = Math.random()*100;
+  this.$node.css({border: random + "px solid red", "border-radius": random + "px"});
 
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
   // so we must keep a copy of the old version of this function
 
   //this.oldStep = Dancer.prototype.step;
-  console.log(this);
+  //console.log(this);
 
 
 };
@@ -15,7 +18,7 @@ BlinkyDancer.prototype.constructor = BlinkyDancer;
 
 BlinkyDancer.prototype.step = function(){
   // call the old version of step at the beginning of any call to this new version of step
-  console.log(this);
+  //console.log(this);
   //this.oldStep.call(this);
 
   Dancer.prototype.step.call(this);
