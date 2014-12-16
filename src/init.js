@@ -36,5 +36,54 @@ $(document).ready(function(){
       window.dancers[i].lineup();
     }
   });
+
+  $("body").on("click", ".obama", function() {
+    var top = parseInt($(this).css("top"));
+    //console.log(top);
+    var left = parseInt($(this).css("left"));
+    var closest = window.dancers[1];
+    var distanceCounter;
+    for(var i=0; i<window.dancers.length; i++) {
+      //var topNeighbour = parseInt($(window.dancers[i]).css("top"),10);
+      //var leftNeighbour = parseInt($(window.dancers[i]).css("left"),10);
+      var topNeighbour = Math.floor(window.dancers[i].top);
+      var leftNeighbour = Math.floor(window.dancers[i].left);
+      //console.log(topNeighbour);
+      var topDiff = top - topNeighbour;
+      var leftDiff = left - leftNeighbour;
+      //console.log(topDiff);
+      //console.log(leftDiff);
+      if(topDiff !== 0 && leftDiff !== 0) {
+        var dist = Math.sqrt((topDiff * topDiff)+(leftDiff * leftDiff));
+        //console.log(dist);
+        if (!distanceCounter){
+          distanceCounter = dist;
+        }
+        if(dist < distanceCounter) {
+          distanceCounter = dist;
+          //window.dancers[i].distance = dist;
+          closest = window.dancers[i];
+        }
+      }
+    }
+    //$(this).css({border: "5px solid blue"});
+    var topThis = $(this).css("top");
+    var leftThis = $(this).css("left");
+
+    var topClosest = (parseInt(topThis) + 60) + "px";
+    var leftClosest = (parseInt(leftThis) + 30) + "px";
+    closest.$node.animate({top: topClosest, left: leftClosest});
+  });
+
+  $("body").on("mouseover", ".dancer", function(){
+    console.log('hello');
+    if(!this.check)
+    {
+      $(this).animate({
+        'height': '+=200px', 'width': '+=200px'
+      });
+      this.check = true;
+    }
+  });
 });
 
